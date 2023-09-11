@@ -1,0 +1,23 @@
+source leaprc.gaff
+source leaprc.protein.ff14SB
+source leaprc.water.tip3p
+loadamberparams frcmod.ionsjc_tip3p
+loadamberparams 6IN3C.frcmod
+MOL = loadMol2 6IN3C.mol2
+saveOFF MOL mol.lib
+loadoff mol.lib
+loadamberparams NAD.frcmod
+NAD = loadMol2 NAD.mol2
+saveOFF NAD nad.lib
+loadoff nad.lib
+com = loadpdb 6IN3C-com.pdb
+savepdb com 6IN3C-com-amb.pdb
+saveamberparm com 6IN3C.prmtop 6IN3C.inpcrd
+solvatebox com TIP3PBOX 10.0 iso 0.8 
+charge com
+addIons com Na+ 0 
+charge com
+saveamberparm com 6IN3C-solv.prmtop 6IN3C-solv.inpcrd
+savepdb com 6IN3C-solv.pdb
+quit
+
